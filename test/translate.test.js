@@ -7,13 +7,13 @@ chai.use(chaiHttp)
 
 describe('Translate API', () => {
     let wordToTest = {
-        word: 'country'
+        word: 'ayam'
     }
 
     it('should return the correct translation in Indo word', (done) => {
         chai
             .request(app)
-            .post('/')
+            .post('/translate')
             .send(wordToTest)
             .end(function(err, res) {
                 expect(err).to.be.null
@@ -21,29 +21,30 @@ describe('Translate API', () => {
                 expect(res).to.be.an('object')
                 expect(res).to.be.json
                 expect(res.body).to.have.property('translated')
-                expect(res.body.translated).to.equal('negara')
+                expect(res.body.translated).to.equal('chicken')
+                done()
             })
-            done()
     })
 
     let slightTypoInput = {
-        word: 'chicker'
+        word: '8900'
     }
 
-    it("should return a Indo meaning of 'chicken'", (done) => {
+    it("should return back the same word like the input", (done) => {
         chai
             .request(app)
-            .post('/')
+            .post('/translate')
             .send(slightTypoInput)
             .end(function(err, res) {
+                // console.log(res.body.translated, '====')
                 expect(err).to.be.null
                 expect(res).to.have.status(200)
                 expect(res).to.be.an('object')
                 expect(res).to.be.json
                 expect(res.body).to.have.property('translated')
-                expect(res.body.translated).to.equal('ayam')
+                expect(res.body.translated).to.equal('8900')
+                done()
             })
-            done()
     })
 
     let apiDoesntHaveTheWord = {
@@ -53,7 +54,7 @@ describe('Translate API', () => {
     it("should return the same word like the input word 'acjascnlnc'", (done) => {
         chai
             .request(app)
-            .post('/')
+            .post('/translate')
             .send(apiDoesntHaveTheWord)
             .end(function(err, res) {
                 expect(err).to.be.null
@@ -62,18 +63,18 @@ describe('Translate API', () => {
                 expect(res).to.be.json
                 expect(res.body).to.have.property('translated')
                 expect(res.body.translated).to.equal('acjascnlnc')
+                done()
             })
-            done()
     })
 
     let bigTypoAndApiDoesntHaveTheWord = {
-        word: 'jhicken'
+        word: 'akam'
     }
 
-    it("should return the same word like the input word 'jhicken'", (done) => {
+    it("should return the same word like the input word 'akam'", (done) => {
         chai
             .request(app)
-            .post('/')
+            .post('/translate')
             .send(bigTypoAndApiDoesntHaveTheWord)
             .end(function(err, res) {
                 expect(err).to.be.null
@@ -81,9 +82,9 @@ describe('Translate API', () => {
                 expect(res).to.be.an('object')
                 expect(res).to.be.json
                 expect(res.body).to.have.property('translated')
-                expect(res.body.translated).to.equal('jhicken')
+                expect(res.body.translated).to.equal('akam')
+                done()
             })
-            done()
     })
 
     let emptyField = {
@@ -93,7 +94,7 @@ describe('Translate API', () => {
     it("should return a message 'Can not translate empty word'", (done) => {
         chai
             .request(app)
-            .post('/')
+            .post('/translate')
             .send(emptyField)
             .end(function(err, res){
                 expect(err).to.be.null
@@ -102,7 +103,7 @@ describe('Translate API', () => {
                 expect(res).to.be.json
                 expect(res.body).to.have.property('msg')
                 expect(res.body.msg).to.equal('Can not translate empty word')
+                done()
             })
-            done()
     })
 })

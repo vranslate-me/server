@@ -3,6 +3,9 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const cors = require('cors')
+const mongoose = require('mongoose')
+mongoose.connect('mongodb://localhost/VRanslateMe-test', { useNewUrlParser: true })
+
 const indexRouter = require('./routes/index');
 
 const app = express();
