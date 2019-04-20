@@ -9,7 +9,7 @@ class Translator {
                     msg: 'Can not translate empty word'
                 })
         } else {
-            const translated = await translate(req.body.word, {from: 'en', to: 'id'})
+            const translated = await translate(req.body.word, {from: 'id', to: 'en'})
             res 
                 .status(200)
                 .json({
