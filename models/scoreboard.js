@@ -13,6 +13,10 @@ const scoreboardSchema = new Schema({
     level: {
         type: Number,
         required: true
+    },
+    language: {
+        type: String,
+        required: true
     }
 })
 
