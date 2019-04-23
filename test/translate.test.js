@@ -13,7 +13,7 @@ describe('Translate API', () => {
     it('should return the correct translation in english word', (done) => {
         chai
             .request(app)
-            .post('/translate/en')
+            .post('/translate/id')
             .send(wordToTest)
             .end(function(err, res) {
                 expect(err).to.be.null
@@ -27,7 +27,7 @@ describe('Translate API', () => {
     })
 
     let wordToTestInDutch = {
-        word: 'ayam'
+        word: 'kip'
     }
 
     it('should return the correct translation in dutch word', (done) => {
@@ -41,7 +41,67 @@ describe('Translate API', () => {
                 expect(res).to.be.an('object')
                 expect(res).to.be.json
                 expect(res.body).to.have.property('translated')
-                expect(res.body.translated).to.equal('kip')
+                expect(res.body.translated).to.equal('chicken')
+                done()
+            })
+    })
+    
+    let wordToTestInChinese = {
+        word: '鸡'
+    }
+
+    it('should return the correct translation in chinese language', (done) => {
+        chai
+            .request(app)
+            .post('/translate/zh-cn')
+            .send(wordToTestInChinese)
+            .end(function(err, res) {
+                expect(err).to.be.null
+                expect(res).to.have.status(200)
+                expect(res).to.be.an('object')
+                expect(res).to.be.json
+                expect(res.body).to.have.property('translated')
+                expect(res.body.translated).to.equal('Chicken')
+                done()
+            })
+    })
+
+    let wordToTestInKorean = {
+        word: '치킨'
+    }
+
+    it('should return the correct translation in chinese language', (done) => {
+        chai
+            .request(app)
+            .post('/translate/ko')
+            .send(wordToTestInKorean)
+            .end(function(err, res) {
+                expect(err).to.be.null
+                expect(res).to.have.status(200)
+                expect(res).to.be.an('object')
+                expect(res).to.be.json
+                expect(res.body).to.have.property('translated')
+                expect(res.body.translated).to.equal('Chicken')
+                done()
+            })
+    })
+
+    let wordToTestInJapanese = {
+        word: 'チキン'
+    }
+
+    it('should return the correct translation in chinese language', (done) => {
+        chai
+            .request(app)
+            .post('/translate/ja')
+            .send(wordToTestInJapanese)
+            .end(function(err, res) {
+                expect(err).to.be.null
+                expect(res).to.have.status(200)
+                expect(res).to.be.an('object')
+                expect(res).to.be.json
+                expect(res.body).to.have.property('translated')
+                expect(res.body.translated).to.equal('chicken')
                 done()
             })
     })
