@@ -11,7 +11,8 @@ class ScoreboardController {
             const newScore = await Scoreboard.create({
                 name: req.body.name,
                 score: req.body.score,
-                level: req.body.level
+                level: req.body.level,
+                language: req.body.lang
             })
             res
                 .status(201)
