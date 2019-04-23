@@ -5,6 +5,6 @@ const scoresController = require('../controllers/scores')
 
 router.get('/scores', scoresController.fetchSortedScores)              
 router.post('/scores', scoresController.inputScore) 
-router.post('/translate', translateController.Translate)
+router.post('/translate/:lang', translateController.Translate)
 
 module.exports = router;

@@ -9,16 +9,12 @@ class Translator {
                     msg: 'Can not translate empty word'
                 })
         } else {
-            // try {
-                const translated = await translate(req.body.word, {from: 'id', to: 'en'})
-                res
-                    .status(200)
-                    .json({
-                        translated: translated.text
-                    })
-            // } catch(err) {
-            //     console.log(err)
-            // }
+            const translated = await translate(req.body.word, {from: 'id', to: req.params.lang})
+            res
+                .status(200)
+                .json({
+                    translated: translated.text
+                })
         }
     }
 }
